@@ -1,5 +1,0 @@
-from django.test import TestCase
-import pytest
-
-def test_sanity():
-    assert 2 + 2 == 4
