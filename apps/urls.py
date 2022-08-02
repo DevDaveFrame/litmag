@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.zines.views import HomeView
-from apps.zines.urls import zines_router
+from apps.zines.urls import zines_router, genres_router, user_profiles_router, works_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
-    path('zines/', include(zines_router.urls)),
+    path('', include(zines_router.urls)),
+    path('', include(genres_router.urls)),
+    path('', include(user_profiles_router.urls)),
+    path('', include(works_router.urls)),
 ]
