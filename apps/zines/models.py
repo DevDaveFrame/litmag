@@ -16,7 +16,7 @@ class UserProfile(models.Model):
         SUBSCRIBER = "Subscriber"
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     name = models.CharField(max_length=60, blank=False, null=True)
-    role = models.CharField(choices=UserRole.choices, default=UserRole.SUBSCRIBER)
+    role = models.CharField(choices=UserRole.choices, default=UserRole.SUBSCRIBER, max_length=60, blank=False, null=True)
     pronouns = models.CharField(max_length=20, blank=True, null=True)
     birthday = models.DateField(blank=False, null=True)
 
