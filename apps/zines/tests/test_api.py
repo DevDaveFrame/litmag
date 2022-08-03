@@ -44,20 +44,20 @@ def test_one_zine_should_return_one_zine(client) -> None:
     assert response_content.get('name') == 'New Yonker'
 
 
-class TestPostZine(TestZinesAPI):
-    def test_post_zine_should_return_201(self) -> None:
-        response = self.client.post(self.zines_url, {
-            'name': 'New Zine',
-            'description': 'New Zine description',
-            'author': self.author.user.id,
-            'genres': [self.genre.id],
-        })
-        self.assertEqual(response.status_code, 201)
+def test_post_zine_should_return_201(client, sample_author, sample_genre) -> None:
+    response = client.post(zines_url, {
+        'name': 'New Zine',
+        'description': 'New Zine description',
+        'author': sample_author.id,
+        'genres': [sample_genre.id],
+    })
+    assert response.status_code == 201
 
-    def test_post_zine_should_return_400_if_missing_name(self) -> None:
-        response = self.client.post(self.zines_url, {
-            'description': 'New Zine description',
-            'author': self.author.user.id,
-            'genres': [self.genre.id],
-        })
-        self.assertEqual(response.status_code, 400)
+
+def test_post_zine_should_return_400_if_missing_name(client, sample_author, sample_genre) -> None:
+    response = client.post(zines_url, {
+        'description': 'New Zine description',
+        'author': sample_author.user.id,
+        'genres': [sample_genre.id],
+    })
+    assert response.status_code == 400
