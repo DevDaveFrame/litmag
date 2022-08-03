@@ -30,18 +30,18 @@ def sample_genre() -> Genre:
     )
 
 
-class TestGetZines(TestZinesAPI):
-    def test_zero_zines_should_return_empty_list(self) -> None:
-        response = self.client.get(self.zines_url)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(json.loads(response.content), [])
+def test_zero_zines_should_return_empty_list(client) -> None:
+    response = client.get(zines_url)
+    assert response.status_code == 200
+    assert json.loads(response.content) == []
 
-    def test_one_zine_should_return_one_zine(self) -> None:
-        Zine.objects.create(name='New Yonker')
-        response = self.client.get(self.zines_url)
-        response_content = json.loads(response.content)[0]
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response_content.get('name'), 'New Yonker')
+
+def test_one_zine_should_return_one_zine(client) -> None:
+    Zine.objects.create(name='New Yonker')
+    response = client.get(zines_url)
+    response_content = json.loads(response.content)[0]
+    assert response.status_code == 200
+    assert response_content.get('name') == 'New Yonker'
 
 
 class TestPostZine(TestZinesAPI):
