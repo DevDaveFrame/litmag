@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+import pytest
 from django.urls import reverse
 import json
 
@@ -6,27 +6,28 @@ from apps.zines.models import Zine, Genre, UserProfile
 from django.contrib.auth.models import User
 
 
-class TestZinesAPI(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_user(
-            username='test_user',
-            password='test_password',
-            email=''
-        )
-        self.client = Client()
-        self.zines_url = reverse('zines-list')
-        self.author = UserProfile.objects.create(
-            user=self.user,
-            name='John Doe',
-            role='Author',
-            pronouns='he/him',
-            birthday='1970-01-01',
-        )
-        self.genre = Genre.objects.create(
-            name='Fantasy',
-            description='A fantasy genre is a genre of literature that typically '
-                        'consists of imaginative, often magical, fantasy stories.',
-        )
+pytestmark = pytest.mark.django_db
+zines_url = reverse('zines-list')
+
+
+@pytest.fixture
+def sample_author() -> UserProfile:
+    return UserProfile.objects.create(
+        user=User.objects.create(username='test_author'),
+        name='John Doe',
+        role='Author',
+        pronouns='he/him',
+        birthday='1970-01-01',
+    )
+
+
+@pytest.fixture
+def sample_genre() -> Genre:
+    return Genre.objects.create(
+        name='Fantasy',
+        description='A fantasy genre is a genre of literature that typically '
+                    'consists of imaginative, often magical, fantasy stories.',
+    )
 
 
 class TestGetZines(TestZinesAPI):
