@@ -1,13 +1,11 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-import pytest
 import json
 
 from apps.zines.models import Zine, Genre, UserProfile
 from django.contrib.auth.models import User
 
 
-@pytest.mark.django_db
 class TestZinesAPI(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -31,7 +29,6 @@ class TestZinesAPI(TestCase):
         )
 
 
-@pytest.mark.django_db
 class TestGetZines(TestZinesAPI):
     def test_zero_zines_should_return_empty_list(self) -> None:
         response = self.client.get(self.zines_url)
@@ -46,7 +43,6 @@ class TestGetZines(TestZinesAPI):
         self.assertEqual(response_content.get('name'), 'New Yonker')
 
 
-@pytest.mark.django_db
 class TestPostZine(TestZinesAPI):
     def test_post_zine_should_return_201(self) -> None:
         response = self.client.post(self.zines_url, {
