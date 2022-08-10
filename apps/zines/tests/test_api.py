@@ -1,3 +1,4 @@
+from random import randrange
 import pytest
 from django.urls import reverse
 import json
@@ -61,3 +62,13 @@ def test_post_zine_should_return_400_if_missing_name(client, sample_author, samp
         'genres': [sample_genre.id],
     })
     assert response.status_code == 400
+
+
+@pytest.mark.xfail(reason='Not implemented yet')
+def test_sanity(client) -> None:
+    assert 1 == 1
+
+
+@pytest.mark.xfail(reason='This test is expected to fail 50 percent of the time')
+def test_expected_failure(client) -> None:
+    assert randrange(2) % 2 == 0
