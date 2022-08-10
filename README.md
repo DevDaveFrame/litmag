@@ -33,6 +33,7 @@ python manage.py runserver
 Exec into the web container then run loaddata:
 ~~~
 docker exec -it litmag_web_1
+# python manage.py migrate
 # python manage.py loaddata db.json
 ~~~
 ### On Local
