@@ -18,11 +18,24 @@ Create and activate a virtual environment with virtualenv:
 virtualenv venv
 source venv/bin/activate
 ~~~
-Install the required dependencies from requirements.txt:
+Install the required dependencies from `requirements.txt`:
 ~~~
 pip install -r requirements.txt
 ~~~
 Make migrations and run the server:
 ~~~
 python manage.py runserver
+~~~
+
+## Loading Seed Data
+### On Docker
+Exec into the web container then run loaddata:
+~~~
+docker exec -it litmag_web_1
+# python manage.py loaddata db.json
+~~~
+### On Local
+Run the loaddata command from the `litmag` directory:
+~~~
+python manage.py loaddata db.json
 ~~~
