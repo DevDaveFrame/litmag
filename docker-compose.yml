@@ -1,5 +1,5 @@
 version: "3.9"
-   
+
 services:
   db:
     image: postgres
@@ -12,11 +12,11 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8001
     volumes:
-      - .:/home/app/litmag  
+      - .:/home/app/litmag
     ports:
-      - "8000:8000"
+      - "8001:8001"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
